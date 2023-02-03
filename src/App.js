@@ -1,23 +1,35 @@
+import React,{useState} from 'react';
+import Todo from './components/Todo';
 import logo from './logo.svg';
-import './App.css';
+import './styles.css';
+
+
+
 
 function App() {
+
+  const [users,setUsers] = useState([
+  {note:"solve ds questions",id:1},
+  {note:"have launch @12",id:2},
+  {note:"have a meeting at 1am", id:3}])
+
+
+  //adding new user
+
+  const addNewUser = (newUser) => {
+
+    // console.log([...users, newUser]);
+     setUsers([...users, newUser])
+
+  }
+
+
+
+  console.log(users)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Todo addUser={addNewUser} users={users} />
+     
     </div>
   );
 }
