@@ -1,40 +1,59 @@
-import React from 'react'
+
+import React, { useState } from 'react';
 import TodoItem from './TodoItem';
 
-export default  function TodoList(props) {
- 
-   const handleClick = (user) => {
-    console.log(`Clicked on user:`, user);
+export default function TodoList(props) {
+  const [displayMode, setDisplayMode] = useState('all');
+
+  const handleClick = (user) => {
+    console.log(user, "user has been clicked");
   };
 
-//   const handleClick = () => {
-//     // 👇️ toggle
-//     setIsActive(current => !current);
-//     //decorativeLine
-//     setDecorative(true)
-//   };
+  let itemsToDisplay;
+  switch (displayMode) {
+    case 'completed':
+      itemsToDisplay = props.newUser.filter(item => item.isActive === true);
+      break;
+    case 'active':
+      itemsToDisplay = props.newUser.filter(item => item.isActive === false);
+      break;
+    default:
+      itemsToDisplay = props.newUser;
+  }
 
   return (
-     
-            <div className='todo-card'>
-          <div className='todo-item'>
-                {/*listing each element my array item */}
-                {
-                  props.newUser.map((user) =>(<TodoItem  user={user} handleClick={handleClick}/>))
-                }
-               <div className='last-item'>
-                <h1>hdh</h1>
+    <div>
+       {itemsToDisplay.map((user) => (
+        <TodoItem
+          key={user.id}
+          user={user}
+          handleClick={handleClick}
+          count={props.count}
+          newClick={props.setCount}
+          newUser={props.newUser}
+          handleSubmit={props.handleSubmit}
+          displayMode={displayMode}
+          setDisplayMode={setDisplayMode}
+          
+        />
+      ))}
+         <div className='last-item'>
+                <p>{props.count + props.newUser.length} items left</p>
+                <div className='last-item-text'>
+                  <div onClick={() =>setDisplayMode('all') }><p >All</p></div>
+                  <div onClick={()=>setDisplayMode('active')}><p>Active</p></div>
+                  <div onClick={()=>setDisplayMode('completed')}><p>completed</p></div>
+                </div>
+                <p>Clear Completed</p>
               </div>
-
-              </div>
-
-              
-
-              
-              </div>
-              
-       
-        
-  
-  )
+       <div>
+       </div>
+    
+    </div>
+  );
 }
+
+
+
+
+
