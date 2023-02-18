@@ -1,6 +1,7 @@
 import React,{useEffect, useState}from 'react'
 
 export default function TodoItem({user,newClick,count,handleSubmit,handleClick}) {
+  // const [isDecorative, setDecorative] = useState(user.isActive)
     const [isDecorative, setDecorative] = useState(user.isActive)
     const counter = () => {
     newClick(count + (isDecorative ? 1 : -1));
