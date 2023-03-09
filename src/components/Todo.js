@@ -1,7 +1,10 @@
 import React, {useEffect,  useState} from 'react'
 import TodoList from './TodoList';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../slice/userSlice';
 
 export default function Todo(props) {
+  const dispatch = useDispatch()
   const [todo, setTodo] = useState("");
   const [icon, setIcon] = useState(false)
   const [isBackground, setBackground] = useState(false)
@@ -18,8 +21,8 @@ export default function Todo(props) {
       id: Math.floor(Math.random() * 1000) + 1, 
       isActive: false
     };
- 
-  props.addUser(newUser)
+
+    dispatch(addUser(newUser))
   };
  
 
@@ -84,7 +87,7 @@ export default function Todo(props) {
         </div>
         <div className='todo-card'  >
           <div className='todo-item'>
-              <TodoList newUser={props.users} count={props.counterF}  setCount={props.setCounter} setUser={props.addUser} prevUsers={props.users}/> 
+              <TodoList newUser={props.users} count={props.counterF}  setCount={props.setCounter}  prevUsers={props.users}/> 
           </div>     
         </div>
         

@@ -1,7 +1,9 @@
-import React,{useEffect, useState}from 'react'
+import React,{useState}from 'react'
+import { toggleActive } from '../slice/userSlice';
+import { useSelector, useDispatch} from 'react-redux';
 
 export default function TodoItem({user,newClick,count,handleSubmit,handleClick}) {
-  // const [isDecorative, setDecorative] = useState(user.isActive)
+  const dispatch = useDispatch();
     const [isDecorative, setDecorative] = useState(user.isActive)
     const counter = () => {
     newClick(count + (isDecorative ? 1 : -1));
@@ -10,11 +12,14 @@ export default function TodoItem({user,newClick,count,handleSubmit,handleClick})
 
 
 const updateActive=()=>{
-  if (user.isActive==true) {
-    user.isActive = false
-  }else{
-    user.isActive = true
-  }
+    dispatch(toggleActive(user.id));
+    setDecorative(!isDecorative);
+
+  // if (user.isActive == true) {
+  //   user.isActive = false
+  // }else{
+  //   user.isActive = true
+  // }
 }
   return (
  <div>
