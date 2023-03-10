@@ -12,10 +12,10 @@ export default function TodoList(props) {
   let itemsToDisplay;
   switch (displayMode) {
     case 'completed':
-      itemsToDisplay = props.newUser.filter(item => item.isActive === true);
+      itemsToDisplay = props.newUser.filter(item => item.isCompleted === true);
       break;
     case 'active':
-      itemsToDisplay = props.newUser.filter(item => item.isActive === false);
+      itemsToDisplay = props.newUser.filter(item => item.isCompleted=== false);
       break;
     default:
       itemsToDisplay = props.newUser;
@@ -31,7 +31,7 @@ export default function TodoList(props) {
           count={props.count}
           newClick={props.setCount}
           newUser={props.newUser}
-          handleSubmit={props.handleSubmit}
+          // handleSubmit={props.handleSubmit}
           displayMode={displayMode}
           setDisplayMode={setDisplayMode}
           

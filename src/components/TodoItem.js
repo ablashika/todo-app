@@ -1,10 +1,11 @@
 import React,{useState}from 'react'
-import { toggleActive } from '../slice/userSlice';
-import { useSelector, useDispatch} from 'react-redux';
+import { fetchTasks, setTasks, toggleActive } from '../slice/todoSlice';
+import {useDispatch} from 'react-redux';
+import { deleteTask } from '../slice/todoSlice';
 
-export default function TodoItem({user,newClick,count,handleSubmit,handleClick}) {
+export default function TodoItem({user,newClick,count,handleClick}) {
   const dispatch = useDispatch();
-    const [isDecorative, setDecorative] = useState(user.isActive)
+    const [isDecorative, setDecorative] = useState(user.isCompleted)
     const counter = () => {
     newClick(count + (isDecorative ? 1 : -1));
 };
@@ -14,12 +15,10 @@ export default function TodoItem({user,newClick,count,handleSubmit,handleClick})
 const updateActive=()=>{
     dispatch(toggleActive(user.id));
     setDecorative(!isDecorative);
+}
 
-  // if (user.isActive == true) {
-  //   user.isActive = false
-  // }else{
-  //   user.isActive = true
-  // }
+const deleteButton = (taskId) => {
+  dispatch(deleteTask(taskId))
 }
   return (
  <div>
@@ -33,16 +32,19 @@ const updateActive=()=>{
                   setDecorative(!isDecorative);
                   handleClick(user);
                   counter() 
-                  handleSubmit()
+                  // handleSubmit()
               
               }}
              >
-             <svg className='icons' xmlns="http://www.w3.org/2000/svg" width="10" height="10"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg>
+             <svg className='icons' xmlns="http://www.w3.org/2000/svg" width="10" height="10"><path fill="none" stroke="#FFF" strokeWidth="2" d="M1 4.304L3.696 7l6-6"/></svg>
               </div>
-              <div>
+              <div className='item-container' >
               <p style={{
                   textDecoration: isDecorative?'line-through': ""
-                }}>{user.note}</p>
+                }}>{user.content}</p>
+                <div onClick={() => deleteButton(user.id)} className="cross-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path fill="#494C6B" fillRule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg>
+                </div>
               </div>
                
               </div>
