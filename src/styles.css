@@ -136,3 +136,12 @@ p{
     
 
  }
+
+ .item-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+ }
+ .cross-box{
+    margin-right: 20px;
+ }

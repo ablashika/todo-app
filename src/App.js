@@ -1,20 +1,28 @@
 import React,{useState,useEffect} from 'react';
 import Todo from './components/Todo';
-import logo from './logo.svg';
-import { useDispatch, useSelector} from 'react-redux';
-import './styles.css';
-import { addUser } from './slice/userSlice';
+import {useSelector,useDispatch} from 'react-redux';
 
+import { fetchTasks } from './slice/todoSlice';
+import './styles.css';
 
 
 
 
 
 function App() {
-  // const [isActive, setIsActive] = useState(false)
-   const dispatch = useDispatch()
-   const users = useSelector((state) => state.user.users)
-   console.log(users,"jj")
+  //  const users = useSelector((state) => state.user.users)
+  //  console.log(users,"jj")
+
+  //display data from api
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.todo.tasks);
+  console.log(users,"jjk")
+  // const isLoading = useSelector((state) => state.todo.isLoading);
+  // const error = useSelector((state) => state.todo.error);
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
 
   // const [users,setUsers] = useState([
   // {note:"solve ds questions",id:1,isActive:false },
@@ -40,6 +48,7 @@ function App() {
     <div className="App">
      <Todo 
     //  addUser={addNewUser} 
+    // tasks={tasks}
      users={users}  
      counterF={counter} setCounter={setCounter} 
     //  setUsers={setUsers}
